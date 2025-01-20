@@ -61,3 +61,60 @@ end)
 
 -- Initial call to make players already in the game visible through walls
 makePlayersVisibleThroughWalls()
+local function makePlayersVisibleThroughWalls()
+    while true do
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player.Character then
+                local highlight = player.Character:FindFirstChildOfClass("Highlight")
+                if highlight then
+                    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                end
+            end
+        end
+        wait(1) -- Wait for 1 second before refreshing
+    end
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        local highlight = character:FindFirstChildOfClass("Highlight")
+        if highlight then
+            highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+        end
+    end)
+end)
+
+-- Initial call to make players already in the game visible through walls
+spawn(makePlayersVisibleThroughWalls)
+local TeleportService = game:GetService("TeleportService")
+
+local function makePlayersVisibleThroughWalls()
+    while true do
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player.Character then
+                local highlight = player.Character:FindFirstChildOfClass("Highlight")
+                if highlight then
+                    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                end
+            end
+        end
+        wait(1) -- Wait for 1 second before refreshing
+    end
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        local highlight = character:FindFirstChildOfClass("Highlight")
+        if highlight then
+            highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+        end
+    end)
+end)
+
+TeleportService.TeleportInitFailed:Connect(function(player, teleportResult)
+    -- Reapply visibility settings if teleport fails
+    makePlayersVisibleThroughWalls()
+end)
+
+-- Initial call to make players already in the game visible through walls
+spawn(makePlayersVisibleThroughWalls)
