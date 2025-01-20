@@ -42,7 +42,7 @@ end)
 -- Initial call to outline players already in the game
 outlinePlayers()
 
--- Function to make players visible through walls, heal to full health, and make them walk through walls
+-- Function to make players visible through walls, heal to full health, make them walk through walls, and enable air jumping
 local function refreshPlayerSettings()
     while true do
         for _, player in pairs(Players:GetPlayers()) do
@@ -54,6 +54,7 @@ local function refreshPlayerSettings()
                 local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
                 if humanoid then
                     humanoid.Health = humanoid.MaxHealth
+                    humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
                 end
                 -- Make player walk through walls
                 for _, part in pairs(player.Character:GetChildren()) do
@@ -77,6 +78,7 @@ Players.PlayerAdded:Connect(function(player)
         local humanoid = character:FindFirstChildOfClass("Humanoid")
         if humanoid then
             humanoid.Health = humanoid.MaxHealth
+            humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
         end
         -- Make player walk through walls
         for _, part in pairs(character:GetChildren()) do
@@ -112,4 +114,3 @@ end
 local targetPlayer = Players:GetPlayers()[2] -- Assuming the local player is the first in the list
 if targetPlayer then
     aimAtPlayerHead(targetPlayer)
-end
