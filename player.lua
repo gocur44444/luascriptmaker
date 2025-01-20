@@ -23,6 +23,7 @@ local function outlinePlayers()
         if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
             local highlight = Instance.new("Highlight")
             highlight.Adornee = player.Character
+            highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
             highlight.Parent = player.Character
         end
     end
@@ -33,6 +34,7 @@ Players.PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function(character)
         local highlight = Instance.new("Highlight")
         highlight.Adornee = character
+        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
         highlight.Parent = character
     end)
 end)
@@ -61,7 +63,7 @@ local function refreshPlayerSettings()
                 end
             end
         end
-        wait(1) -- Wait for 1 second before refreshing
+        wait(0.1) -- Wait for 0.1 second before refreshing
     end
 end
 
