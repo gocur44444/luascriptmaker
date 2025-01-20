@@ -145,3 +145,97 @@ mouse.Button1Down:Connect(function()
         aimAtHead(targetPlayer)
     end
 end)
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+
+-- Function to print the names of all players in the game
+local function printPlayerNames()
+    for _, player in pairs(Players:GetPlayers()) do
+        print(player.Name)
+    end
+end
+
+-- Connect the function to the PlayerAdded event to print names when a new player joins
+Players.PlayerAdded:Connect(function(player)
+    print(player.Name .. " has joined the game.")
+    printPlayerNames()
+end)
+
+-- Initial call to print the names of players already in the game
+printPlayerNames()
+
+-- Function to outline all players in the game
+local function outlinePlayers()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local highlight = Instance.new("Highlight")
+            highlight.Adornee = player.Character
+            highlight.Parent = player.Character
+        end
+    end
+end
+
+-- Connect the function to the PlayerAdded event to outline new players
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        local highlight = Instance.new("Highlight")
+        highlight.Adornee = character
+        highlight.Parent = character
+    end)
+end)
+
+-- Initial call to outline players already in the game
+outlinePlayers()
+
+-- Function to make players visible through walls
+local function makePlayersVisibleThroughWalls()
+    while true do
+        for _, player in pairs(Players:GetPlayers()) do
+            if player.Character then
+                local highlight = player.Character:FindFirstChildOfClass("Highlight")
+                if highlight then
+                    highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                end
+            end
+        end
+        wait(1) -- Wait for 1 second before refreshing
+    end
+end
+
+-- Connect the function to the PlayerAdded event to make new players visible through walls
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        local highlight = character:FindFirstChildOfClass("Highlight")
+        if highlight then
+            highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+        end
+    end)
+end)
+
+TeleportService.TeleportInitFailed:Connect(function(player, teleportResult)
+    -- Reapply visibility settings if teleport fails
+    makePlayersVisibleThroughWalls()
+end)
+
+-- Initial call to make players already in the game visible through walls
+spawn(makePlayersVisibleThroughWalls)
+
+-- Function to heal players to full health
+local function healPlayersToFullHealth()
+    for _, player in pairs(Players:GetPlayers()) do
+        if player.Character and player.Character:FindFirstChildOfClass("Humanoid") then
+            local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+            humanoid.Health = humanoid.MaxHealth
+        end
+    end
+end
+
+-- Connect the function to the PlayerAdded event to heal new players to full health
+Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.Health = humanoid.MaxHealth
+        end
+    end)
+end)
