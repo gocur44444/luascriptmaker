@@ -1,5 +1,7 @@
 local Players = game:GetService("Players")
 local TeleportService = game:GetService("TeleportService")
+local UserInputService = game:GetService("UserInputService")
+local Workspace = game:GetService("Workspace")
 
 -- Function to print the names of all players in the game
 local function printPlayerNames()
@@ -99,6 +101,31 @@ end)
 -- Initial call to refresh player settings
 spawn(refreshPlayerSettings)
 
+-- Function to enable infinite jumping
+local function enableInfiniteJumping()
+    UserInputService.JumpRequest:Connect(function()
+        local localPlayer = Players.LocalPlayer
+        if localPlayer.Character and localPlayer.Character:FindFirstChildOfClass("Humanoid") then
+            localPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+        end
+    end)
+end
+
+-- Enable infinite jumping for the local player
+enableInfiniteJumping()
+
+-- Function to make all walls invisible
+local function makeWallsInvisible()
+    for _, part in pairs(Workspace:GetDescendants()) do
+        if part:IsA("BasePart") and part.Name == "Wall" then
+            part.Transparency = 1
+        end
+    end
+end
+
+-- Initial call to make walls invisible
+makeWallsInvisible()
+
 -- Function to aim at another player's head
 local function aimAtPlayerHead(targetPlayer)
     local localPlayer = Players.LocalPlayer
@@ -114,3 +141,4 @@ end
 local targetPlayer = Players:GetPlayers()[2] -- Assuming the local player is the first in the list
 if targetPlayer then
     aimAtPlayerHead(targetPlayer)
+end
