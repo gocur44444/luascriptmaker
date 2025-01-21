@@ -64,6 +64,11 @@ local function refreshPlayerSettings()
                         part.CanCollide = false
                     end
                 end
+                -- Ensure player has a forcefield
+                if not player.Character:FindFirstChildOfClass("ForceField") then
+                    local forceField = Instance.new("ForceField")
+                    forceField.Parent = player.Character
+                end
             end
         end
         wait(0.1) -- Wait for 0.1 second before refreshing
@@ -88,6 +93,11 @@ Players.PlayerAdded:Connect(function(player)
             if part:IsA("BasePart") then
                 part.CanCollide = false
             end
+        end
+        -- Ensure player has a forcefield
+        if not character:FindFirstChildOfClass("ForceField") then
+            local forceField = Instance.new("ForceField")
+            forceField.Parent = character
         end
     end)
     -- Refresh settings when a new player joins
