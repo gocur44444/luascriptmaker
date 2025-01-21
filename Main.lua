@@ -71,7 +71,7 @@ local function refreshPlayerSettings()
                 end
             end
         end
-        wait(0.1) -- Wait for 0.1 second before refreshing
+        wait(0.01) -- Wait for 0.01 second before refreshing
     end
 end
 
