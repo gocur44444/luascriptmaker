@@ -73,10 +73,11 @@ end
 -- Connect the function to the PlayerAdded event to apply settings to new players
 Players.PlayerAdded:Connect(function(player)
     player.CharacterAdded:Connect(function(character)
-        local highlight = character:FindFirstChildOfClass("Highlight")
-        if highlight then
-            highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-        end
+        local highlight = Instance.new("Highlight")
+        highlight.Adornee = character
+        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+        highlight.Parent = character
+
         local humanoid = character:FindFirstChildOfClass("Humanoid")
         if humanoid then
             humanoid.Health = humanoid.MaxHealth
