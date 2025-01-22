@@ -88,7 +88,7 @@ Players.PlayerAdded:Connect(function(player)
         if humanoid then
             humanoid.Health = humanoid.MaxHealth
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
-            humanoid.WalkSpeed = 25 -- Set player speed to 25
+            humanoid.WalkSpeed = 45  -- Set player speed to 25
         end
         -- Make player walk through walls
         for _, part in pairs(character:GetChildren()) do
