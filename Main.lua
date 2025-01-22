@@ -57,6 +57,7 @@ local function refreshPlayerSettings()
                 if humanoid then
                     humanoid.Health = humanoid.MaxHealth
                     humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+                    humanoid.WalkSpeed = 25 -- Set player speed to 25
                 end
                 -- Make player walk through walls
                 for _, part in pairs(player.Character:GetChildren()) do
@@ -71,7 +72,7 @@ local function refreshPlayerSettings()
                 end
             end
         end
-        wait(0.01) -- Wait for 0.01 second before refreshing
+        wait(0.000001) -- Wait for 0.000001 second before refreshing
     end
 end
 
@@ -87,6 +88,7 @@ Players.PlayerAdded:Connect(function(player)
         if humanoid then
             humanoid.Health = humanoid.MaxHealth
             humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping, true)
+            humanoid.WalkSpeed = 25 -- Set player speed to 25
         end
         -- Make player walk through walls
         for _, part in pairs(character:GetChildren()) do
